@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.github.video.VideoActivity">
+
+    <com.github.video.view.SquareGLSurfaceView
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+   <Button
+       android:id="@+id/startRecordBtn"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:background="@null"
+       android:text="开始"
+       android:onClick="startRecord"
+       android:layout_alignParentBottom="true"/>
+
+    <Button
+        android:id="@+id/endRecordBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:text="结束"
+        android:onClick="endRecord"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:text="保存"
+        android:onClick="saveBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/backBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:text="回退"
+        android:onClick="backBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/saveBtn"/>
+
+</RelativeLayout>

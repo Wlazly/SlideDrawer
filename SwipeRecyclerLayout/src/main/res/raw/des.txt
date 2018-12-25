@@ -1,0 +1,170 @@
+<Part1:组件总体概述>
+侧滑菜单包括4个类：
+SwipeBaseAdapter:(非必须用到)之后的RecyclerView的Adapter可以继承它。这个类主要是做了item的点击事件的处理。因为item的点击事件会有概率调用两次。
+				在Activity或fragment中要主动调用setOnItemClickListener（xxx...）来获取item点击事件的回调。
+				如果不想用SwipeBaseAdapter：可以模仿它进行重写来进行Item的点击事件监听。
+
+NoDoubleClickListener：（不需要用到）这个类做了防止多次点击的监听。
+
+SwipeRecyclerView:（必须用到）：主要用到是对已经打开的menu进行处理。
+				   xml中的引用：com.github.swiperecyclerlayout.SwipeRecyclerView
+
+SwipeItemLayout:(必须用到)侧滑菜单的Item类，RecyclerView的Item的xml根布局就是要使用这个类来包含content(内容)和menu(菜单)。
+				有2个自定义属性：
+					childGravity:是要从左边滑出来，还是从右边画出来，有"left"和“right”可选
+					menuPercent：弹出的menu的宽度占主页面布局的百分比，百分数类型，只能以%结尾，例如30%
+				有3个可供调用的方法：
+					isShow():看menu是否已经展示出来
+					openMenu():打开menu
+					closeMenu():关闭menu
+				xml中的引用：com.github.swiperecyclerlayout.SwipeItemLayout 
+					
+------------------------------------------------------------------------------
+<Part2:接入步骤>
+	<Part2.1 需要用到的依赖>
+	implementation 'com.android.support:recyclerview-v7:28.0.0'
+	
+	<Part2.2 使用例子展示>
+	1.创建adapter的item的xml布局：
+	在xml中，com.github.swiperecyclerlayout.SwipeItemLayout标签下，必须有主页面的布局，和menu页面的布局，主页面布局在前，Drawer页面布局在后。
+	
+	<com.github.swiperecyclerlayout.SwipeItemLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="150dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"  //添加自定义属性需要
+    app:childGravity="right"  //右边画出来
+    app:menuPercent="40%"		//menu占父布局的40%
+    android:id="@+id/swipeLayout">   //id,必须添加，id的名自己决定
+
+    <!--content 先主页面-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical" >
+        <ImageView
+            android:id="@+id/imageView"
+            android:src="@drawable/kxg"
+            android:layout_width="50dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_height="50dp"/>
+    </LinearLayout>
+
+    <!--menu 后menu页面-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        >
+        <TextView
+            android:id="@+id/tv_del"
+            android:layout_width="70dp"
+            android:background="#f00"
+            android:textColor="#fff"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:clickable="true"
+            android:text="刪除" />
+    </LinearLayout>
+    
+	</com.github.swiperecyclerlayout.SwipeItemLayout>
+	
+	2.创建Adpater继承SwipeBaseAdapter:
+	public class CustomAdapter extends SwipeBaseAdapter<CustomAdapter.Holder> { //CustomAdapter.Holder自己定义
+		
+		//构造函数	
+		 public CustomAdapter(Context context){
+			this.context = context;
+		}
+		
+		
+		@NonNull
+		@Override  //需要重写
+		public Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+			View view = LayoutInflater.from(context).inflate(R.layout.layout_custom_item,viewGroup,false);
+			Log.i(TAG, "onCreateViewHolder: ");
+			Holder holder = new Holder(view);
+			return holder;
+		}
+    
+		@Override //需要重写
+		public void bindToViewHolder(final Holder holder, int position) {
+			Log.i(TAG, "onBindViewHolder: " + position);
+			holder.imageView.setImageResource(ids[position]);
+			holder.textView.setText(strs[position] + position);
+			//item的menu中的delete按钮的点击事件
+			holder.tv_del.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(context, "deleteClick", Toast.LENGTH_SHORT).show();
+					holder.swipeLayout.closeMenu(); //调用这个方法去关闭menu菜单
+				}
+			});
+			//item中的content的button的点击事件
+			holder.contentBtn.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(context, "contentBtn", Toast.LENGTH_SHORT).show();
+				}
+			});
+		}
+
+		@Override//需要重写
+		public int getItemCount() {
+			return ids.length;
+		}
+		
+		class Holder extends RecyclerView.ViewHolder {
+			SwipeItemLayout swipeLayout;
+			TextView textView;
+			TextView tv_del;
+			ImageView imageView;
+			Button contentBtn;
+
+			public Holder(@NonNull View itemView) {
+				super(itemView);
+				textView=itemView.findViewById(R.id.textView);
+				imageView=itemView.findViewById(R.id.imageView);
+				tv_del=itemView.findViewById(R.id.tv_del);
+				swipeLayout=itemView.findViewById(R.id.swipeLayout);
+				contentBtn = itemView.findViewById(R.id.content_btn);
+			}
+		}
+	}
+	
+	3:在Activity或者Fragment的xml创建RecyclerView:
+	<com.github.swiperecyclerlayout.SwipeRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+		
+		
+	
+	4.在Activity或者Fragment中初始化RecyclerView:
+	private void initView() {
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,1));//添加间隔行
+        CustomAdapter recycleAdapter = new CustomAdapter(this);
+        recyclerView.setAdapter(recycleAdapter);
+        recycleAdapter.setOnItemClickListener(new SwipeBaseAdapter.OnItemClickListener() {
+            @Override //添加点击事件
+            public void onItemClick(int position) {
+                Toast.makeText(CustomActivity.this, "itemClick", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+	
+	
+<Part3 注意部分>
+	记得在build.gradle (Module)里添加引用
+    3.1.如果把控件打成了aar, 则按照aar方式引用: implementation(name: '$你的aar包的名称', ext: 'aar')
+    3.2.如果是下载library,则按照library方式引用: implementation project(path: ':$你的library的名称')
+    3.3.如果是依赖, 则按照dependencies的方式导入: implementation 'xxx地址'
+	
+	
+
+
+			

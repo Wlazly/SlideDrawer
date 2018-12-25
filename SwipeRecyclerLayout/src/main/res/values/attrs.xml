@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SwipeItemLayout">
+        <attr name="shadowColor" format="color"/>
+        <attr name="childGravity">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+        <attr name="menuPercent" format="fraction"/>
+    </declare-styleable>
+</resources>

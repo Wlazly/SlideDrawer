@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.github.slidedrawer.MainActivity"
+    android:orientation="vertical"
+    >
+
+    <Button
+        android:id="@+id/customActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="customActivity"
+        android:textColor="@android:color/black"
+        android:onClick="customActivity"/>
+
+    <Button
+        android:id="@+id/swipeActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="swipeActivity"
+        android:textColor="@android:color/black"
+        android:onClick="swipeActivity"/>
+
+    <Button
+        android:id="@+id/videoActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="videoActivity"
+        android:textColor="@android:color/black"
+        android:onClick="videoActivity"/>
+</LinearLayout>
