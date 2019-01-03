@@ -1,11 +1,11 @@
 package com.github.greendao.module;
 
 import com.github.greendao.DbHelper;
+import com.github.greendao.Entity.DaoSession;
 import com.github.greendao.callback.InsertCallBack;
 import com.github.greendao.callback.InsertOrUpdateCallBack;
 import com.github.greendao.callback.QueryListCallBack;
 import com.github.greendao.callback.UpdateCallBack;
-import com.github.greendao.greendao.DaoSession;
 
 import org.greenrobot.greendao.AbstractDao;
 

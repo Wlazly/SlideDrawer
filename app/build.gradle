@@ -34,7 +34,7 @@ repositories {
 }
 
 ext {
-    branchName="video"
+    branchName="mylibrary"
 }
 
 dependencies {
@@ -46,9 +46,9 @@ dependencies {
     //implementation 'com.github.tom200989:nb20_module:a0.1'
     implementation project(':SwipeRecyclerLayout')
     implementation project(':video')
-    if(project.hasProperty('branchName') && branchName.equals("video")){
-        implementation project(':mylibrary')
-    }
-    implementation project(':greendao')
+//    if(project.hasProperty('branchName') && branchName.equals("mylibrary")){
+//        implementation project(':mylibrary')
+//    }
+//    implementation project(':greendao')
 
 }

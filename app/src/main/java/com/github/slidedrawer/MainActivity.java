@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.github.greendao.GreenDaoActivity;
-
-
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -42,6 +39,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void greendaoActivity(View view) {
-        goToNextActivity(GreenDaoActivity.class);
+//        goToNextActivity(GreenDaoActivity.class);
     }
 }

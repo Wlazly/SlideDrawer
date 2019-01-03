@@ -2,7 +2,7 @@ package com.github.greendao;
 
 import android.content.Context;
 
-import com.github.greendao.greendao.DaoMaster;
+import com.github.greendao.Entity.DaoMaster;
 import com.github.yuweiguocn.library.greendao.MigrationHelper;
 
 import org.greenrobot.greendao.AbstractDao;

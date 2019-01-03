@@ -3,8 +3,8 @@ package com.github.greendao;
 import android.app.Application;
 import android.support.annotation.Nullable;
 
-import com.github.greendao.greendao.DaoMaster;
-import com.github.greendao.greendao.DaoSession;
+import com.github.greendao.Entity.DaoMaster;
+import com.github.greendao.Entity.DaoSession;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.database.Database;
@@ -16,7 +16,6 @@ import org.greenrobot.greendao.database.Database;
 public class DbHelper {
 
     private static DbHelper instance;
-    public static final String BASENAME = "mkno";
     private DaoSession mDaoSessing;
     private MySQLiteOpenHelper openHelper;
     private final DaoMaster daoMaster;
