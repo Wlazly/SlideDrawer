@@ -24,9 +24,15 @@ public class UserDao extends AbstractDao<User, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, long.class, "id", true, "_id");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
-        public final static Property Age = new Property(2, String.class, "age", false, "AGE");
+        public final static Property Age = new Property(2, int.class, "age", false, "AGE");
+        public final static Property Address = new Property(3, String.class, "address", false, "ADDRESS");
+        public final static Property School = new Property(4, String.class, "school", false, "SCHOOL");
+        public final static Property Sex = new Property(5, String.class, "sex", false, "SEX");
+        public final static Property Education = new Property(6, String.class, "education", false, "EDUCATION");
+        public final static Property Likes = new Property(7, String.class, "likes", false, "LIKES");
+        public final static Property Hates = new Property(8, String.class, "hates", false, "HATES");
     }
 
 
@@ -42,9 +48,15 @@ public class UserDao extends AbstractDao<User, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY NOT NULL ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"NAME\" TEXT," + // 1: name
-                "\"AGE\" TEXT);"); // 2: age
+                "\"AGE\" INTEGER NOT NULL ," + // 2: age
+                "\"ADDRESS\" TEXT," + // 3: address
+                "\"SCHOOL\" TEXT," + // 4: school
+                "\"SEX\" TEXT," + // 5: sex
+                "\"EDUCATION\" TEXT," + // 6: education
+                "\"LIKES\" TEXT," + // 7: likes
+                "\"HATES\" TEXT);"); // 8: hates
     }
 
     /** Drops the underlying database table. */
@@ -56,55 +68,127 @@ public class UserDao extends AbstractDao<User, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, User entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String name = entity.getName();
         if (name != null) {
             stmt.bindString(2, name);
         }
+        stmt.bindLong(3, entity.getAge());
  
-        String age = entity.getAge();
-        if (age != null) {
-            stmt.bindString(3, age);
+        String address = entity.getAddress();
+        if (address != null) {
+            stmt.bindString(4, address);
+        }
+ 
+        String school = entity.getSchool();
+        if (school != null) {
+            stmt.bindString(5, school);
+        }
+ 
+        String sex = entity.getSex();
+        if (sex != null) {
+            stmt.bindString(6, sex);
+        }
+ 
+        String education = entity.getEducation();
+        if (education != null) {
+            stmt.bindString(7, education);
+        }
+ 
+        String likes = entity.getLikes();
+        if (likes != null) {
+            stmt.bindString(8, likes);
+        }
+ 
+        String hates = entity.getHates();
+        if (hates != null) {
+            stmt.bindString(9, hates);
         }
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, User entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
  
         String name = entity.getName();
         if (name != null) {
             stmt.bindString(2, name);
         }
+        stmt.bindLong(3, entity.getAge());
  
-        String age = entity.getAge();
-        if (age != null) {
-            stmt.bindString(3, age);
+        String address = entity.getAddress();
+        if (address != null) {
+            stmt.bindString(4, address);
+        }
+ 
+        String school = entity.getSchool();
+        if (school != null) {
+            stmt.bindString(5, school);
+        }
+ 
+        String sex = entity.getSex();
+        if (sex != null) {
+            stmt.bindString(6, sex);
+        }
+ 
+        String education = entity.getEducation();
+        if (education != null) {
+            stmt.bindString(7, education);
+        }
+ 
+        String likes = entity.getLikes();
+        if (likes != null) {
+            stmt.bindString(8, likes);
+        }
+ 
+        String hates = entity.getHates();
+        if (hates != null) {
+            stmt.bindString(9, hates);
         }
     }
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public User readEntity(Cursor cursor, int offset) {
         User entity = new User( //
-            cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // age
+            cursor.getInt(offset + 2), // age
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // address
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // school
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // sex
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // education
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // likes
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // hates
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, User entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setAge(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setAge(cursor.getInt(offset + 2));
+        entity.setAddress(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setSchool(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setSex(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setEducation(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setLikes(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setHates(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
      }
     
     @Override
@@ -124,7 +208,7 @@ public class UserDao extends AbstractDao<User, Long> {
 
     @Override
     public boolean hasKey(User entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+        return entity.getId() != null;
     }
 
     @Override

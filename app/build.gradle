@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'org.greenrobot.greendao'
 apply plugin: 'com.jakewharton.butterknife'
 android {
     compileSdkVersion 28
@@ -12,12 +11,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters 'armeabi-v7a'
-        }
-        javaCompileOptions {
-
-            annotationProcessorOptions {
-                arguments = [ moduleName : project.getName() ]
-            }
         }
     }
     buildTypes {
@@ -55,8 +48,7 @@ dependencies {
     implementation project(':video')
     if(project.hasProperty('branchName') && branchName.equals("video")){
         implementation project(':mylibrary')
-        annotationProcessor project(':mylibrary')
     }
-    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation project(':greendao')
 
 }

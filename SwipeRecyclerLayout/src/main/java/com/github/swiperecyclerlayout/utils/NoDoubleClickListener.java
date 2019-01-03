@@ -22,4 +22,5 @@ public abstract class NoDoubleClickListener implements View.OnClickListener {
 
     //抽象一个无连击事件方法，用于实现内容
     public abstract void onNoDoubleClick(View v);
+
 }

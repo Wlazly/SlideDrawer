@@ -9,23 +9,55 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 @Entity
 public class User {
-    @Id
-    private long id;
+
+    @Id(autoincrement = true)
+    private Long id;
     private String name;
-    private String age;
-    @Generated(hash = 531058479)
-    public User(long id, String name, String age) {
+    private int age;
+    private String address;
+    private String school;
+    private String sex;
+    private String education;
+    private String likes;
+    private String hates;
+
+    public static final String LIKES = "likes";
+    public static final String HATES = "hates";
+
+
+
+    @Generated(hash = 1710933067)
+    public User(Long id, String name, int age, String address, String school,
+            String sex, String education, String likes, String hates) {
         this.id = id;
         this.name = name;
         this.age = age;
+        this.address = address;
+        this.school = school;
+        this.sex = sex;
+        this.education = education;
+        this.likes = likes;
+        this.hates = hates;
     }
+
+    public User(String name, int age, String address, String school, String sex, String education, String likes, String hates) {
+        this.name = name;
+        this.age = age;
+        this.address = address;
+        this.school = school;
+        this.sex = sex;
+        this.education = education;
+        this.likes = likes;
+        this.hates = hates;
+    }
+
     @Generated(hash = 586692638)
     public User() {
     }
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getName() {
@@ -34,10 +66,49 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-    public String getAge() {
+    public int getAge() {
         return this.age;
     }
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
+    public String getAddress() {
+        return this.address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public String getSchool() {
+        return this.school;
+    }
+    public void setSchool(String school) {
+        this.school = school;
+    }
+    public String getSex() {
+        return this.sex;
+    }
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+    public String getEducation() {
+        return this.education;
+    }
+    public void setEducation(String education) {
+        this.education = education;
+    }
+    public String getLikes() {
+        return this.likes;
+    }
+    public void setLikes(String likes) {
+        this.likes = likes;
+    }
+    public String getHates() {
+        return this.hates;
+    }
+    public void setHates(String hates) {
+        this.hates = hates;
+    }
+
+
+    
 }

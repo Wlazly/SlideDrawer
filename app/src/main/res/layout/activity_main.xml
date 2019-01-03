@@ -31,4 +31,12 @@
         android:text="videoActivity"
         android:textColor="@android:color/black"
         android:onClick="videoActivity"/>
+
+    <Button
+        android:id="@+id/greendaoActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="greendaoActivity"
+        android:textColor="@android:color/black"
+        android:onClick="greendaoActivity"/>
 </LinearLayout>

@@ -24,6 +24,7 @@ public abstract class SwipeBaseAdapter<VH extends RecyclerView.ViewHolder> exten
 
     @Override
     public void onBindViewHolder(@NonNull VH vh, final int position) {
+
         vh.itemView.setOnClickListener(new NoDoubleClickListener() {
             @Override
             public void onNoDoubleClick(View v) {
