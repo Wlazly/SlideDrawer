@@ -18,12 +18,11 @@ allprojects {
         flatDir {
             dirs project(':app').file('libs')
         }
+        maven { url 'https://jitpack.io' }
     }
 }
 
-dependencies {
 
-}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

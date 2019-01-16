@@ -2,8 +2,6 @@ package com.github.slidedrawer;
 
 import android.app.Application;
 
-import com.github.greendao.core.DbHelper;
-
 import org.xutils.x;
 
 
@@ -18,7 +16,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         x.Ext.init(this);
-        DbHelper.init(this,BASENAME,null);
+//        DbHelper.init(this,BASENAME,null);
     }
 
 

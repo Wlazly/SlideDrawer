@@ -25,9 +25,9 @@ public class UserDbBean {
     private String loginInfo; //个人登陆信息
 
 
-    @Generated(hash = 938050175)
-    public UserDbBean(Long id, String userId, boolean active, String userInfo,
-            String loginInfo) {
+    @Generated(hash = 1318772172)
+    public UserDbBean(Long id, @NotNull String userId, boolean active,
+            String userInfo, String loginInfo) {
         this.id = id;
         this.userId = userId;
         this.active = active;

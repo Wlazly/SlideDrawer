@@ -30,30 +30,34 @@ public class UserDbModel extends BaseDbModel {
     }
 
     /**
+     * 清除个人基本信息，退出登录或被挤出登录使用
+     */
+    public static void clearUserInfo(){
+        UserDbBean userDbBean = getUserDbBean();
+        if (userDbBean != null) {
+            delete(userDbBean);
+        }
+    }
+    /**
      * 设置登陆信息,登陆需要或者刷新token
      * @param bean
      */
     public static void setLoginBean(LoginBean bean) {
-        if (bean == null){
-            UserDbBean userDbEntity = getUserDbBean();
-            delete(userDbEntity);
+        UserDbBean userDbEntity = getUserDbBean();
+        if (userDbEntity != null){
+            LoginBean loginBean = JSONObject.parseObject(userDbEntity.getLoginInfo(),LoginBean.class);
+            loginBean.copy(bean);
+            userDbEntity.setLoginInfo(JSONObject.toJSONString(loginBean));
+            update(userDbEntity);
         }else {
-            UserDbBean userDbEntity = getUserDbBean();
-            if (userDbEntity != null){
-                LoginBean loginBean = JSONObject.parseObject(userDbEntity.getLoginInfo(),LoginBean.class);
-                loginBean.copy(bean);
-                userDbEntity.setLoginInfo(JSONObject.toJSONString(loginBean));
-                update(userDbEntity);
-            }else {
-                userDbEntity = new UserDbBean();
-                userDbEntity.setLoginInfo(JSONObject.toJSONString(bean));
-                userDbEntity.setActive(true);
-                userDbEntity.setUserId(bean.getUid());
-                insert(userDbEntity);
-            }
+            userDbEntity = new UserDbBean();
+            userDbEntity.setLoginInfo(JSONObject.toJSONString(bean));
+            userDbEntity.setActive(true);
+            userDbEntity.setUserId(bean.getUid());
+            insert(userDbEntity);
         }
-
     }
+
 
     /**
      * 获取个人基本信息

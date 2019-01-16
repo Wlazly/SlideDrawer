@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by wzhiqiang on 2019/1/14.
  */
-public class DeviceDbModel extends BaseDbModel{
+public class DeviceDbModel extends BaseDbModel {
 
     /**
      * 获取所有设备id
@@ -26,6 +26,7 @@ public class DeviceDbModel extends BaseDbModel{
         String userId = UserDbModel.getUid();
         List<String> deviceList = new ArrayList<>();
         List<DeviceDbBean> deviceDbBeanList = queryAll(userId);
+        if (deviceDbBeanList == null) return null;
         for (DeviceDbBean deviceDbBean : deviceDbBeanList) {
             deviceList.add(deviceDbBean.getDeviceId());
         }
@@ -38,9 +39,10 @@ public class DeviceDbModel extends BaseDbModel{
     public static void clearAllDevice(){
         String userId = UserDbModel.getUid();
         List<DeviceDbBean> deviceDbBeanList = queryAll(userId);
-        delete(deviceDbBeanList);
+        if (deviceDbBeanList != null) {
+            delete(deviceDbBeanList);
+        }
     }
-
 
     /**
      * 获取单个设备
@@ -51,6 +53,7 @@ public class DeviceDbModel extends BaseDbModel{
         String userId = UserDbModel.getUid();
         DeviceDbBean deviceDbBean = querySingle(DeviceDbBean.class,new WhereCondition[]{DeviceDbBeanDao.Properties.DeviceId.eq(deviceId),
                 DeviceDbBeanDao.Properties.UserId.eq(userId)});
+        if (deviceDbBean == null) return null;
         DeviceBean deviceBean = new DeviceBean();
         deviceBean.copy(deviceDbBean);
         return deviceBean;
@@ -76,7 +79,6 @@ public class DeviceDbModel extends BaseDbModel{
         insertOrUpdate(deviceDbBean);
     }
 
-
     /**
      * 查询单个设备，private 只会自己使用
      * @param userId
@@ -90,7 +92,7 @@ public class DeviceDbModel extends BaseDbModel{
     }
 
     /**
-     * 查询所有设备，private 只会自己使用
+     * 查询所有设备，private 使用只给自己使用
      * @param userId
      * @return
      */

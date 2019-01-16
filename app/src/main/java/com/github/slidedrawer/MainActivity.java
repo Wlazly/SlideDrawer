@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.github.greendao.activity.GreenDaoActivity;
 import com.github.video.VideoActivity;
 import com.xnet.xnet2.core.ServerError;
 import com.xnet.xnet2.core.Xhelper;
@@ -58,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
 //        updateFile();
 //        updateFile();
 //        downFile();
-        goToNextActivity(GreenDaoActivity.class);
-
+//        goToNextActivity(GreenDaoActivity.class);
     }
 
     public void login() {

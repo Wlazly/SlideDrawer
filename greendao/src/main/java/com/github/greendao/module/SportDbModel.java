@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Created by wzhiqiang on 2019/1/15.
  */
-
 public class SportDbModel extends BaseDbModel {
 
     /**
