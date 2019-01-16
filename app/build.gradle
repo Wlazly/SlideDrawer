@@ -29,7 +29,7 @@ android {
 
 repositories {
     flatDir {
-        dirs 'libs'
+        dirs project(':xnet2').file('libs')
     }
 }
 
@@ -46,9 +46,10 @@ dependencies {
     //implementation 'com.github.tom200989:nb20_module:a0.1'
     implementation project(':SwipeRecyclerLayout')
     implementation project(':video')
+//    implementation(name: 'token-release', ext: 'aar')
 //    if(project.hasProperty('branchName') && branchName.equals("mylibrary")){
 //        implementation project(':mylibrary')
 //    }
-//    implementation project(':greendao')
-
+    implementation project(':xnet2')
+    implementation project(':greendao')
 }

@@ -6,7 +6,7 @@
     <application
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:replace="android:theme">
-        <activity android:name=".GreenDaoActivity"></activity>
+        <activity android:name=".activity.GreenDaoActivity"></activity>
     </application>
 
 </manifest>

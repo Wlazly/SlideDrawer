@@ -103,11 +103,4 @@ public class SwipeRecyclerView extends RecyclerView {
         }
         return null;
     }
-
-//    private void initDb2(){
-//        DaoMaster.DevOpenHelper openHelper = new DaoMaster.DevOpenHelper(this, "mt40");
-//        Database db = openHelper.getWritableDb();
-//        DaoMaster daoMaster = new DaoMaster(db);
-//        DaoSession mDaoSessing = daoMaster.newSession();
-//    }
 }

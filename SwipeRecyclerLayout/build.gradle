@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 28
 
@@ -35,6 +34,5 @@ repositories {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-    api project(':mylibrary')
 
 }
