@@ -13,6 +13,7 @@ import com.xnet.xnet2.core.ServerError;
 import com.xnet.xnet2.core.Xhelper;
 import com.xnet.xnet2.demo.LoginParam;
 import com.xnet.xnet2.demo.Loginbean;
+import com.xnet.xnet2.demo.UserParam;
 import com.xnet.xnet2.listener.XNormalListener;
 import com.xnet.xnet2.listener.XTransferListener;
 
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void greendaoActivity(View view) {
-//        login();
+        getTimestamp();
 //        updateFile();
 //        updateFile();
 //        downFile();
@@ -278,4 +279,46 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void getTimestamp() {
+        Xhelper.BASE_URL = "https://www.alcatel-move.com";
+        String SECURL = "/v1.0/im/timestamp";
+        Xhelper.KEY = "vEWZapEpW5OezzEs5Su44xAbCiy9-arCJz7eoLJfjac2h1r4VF0";
+        Xhelper.UID = "15782713702718311309";
+        Xhelper.ACCESS_TOKEN = "gM5fF2K1Hhtn_t5q1pAqftZfvjgbRrpAO7VRpXayP7zDyQz9cLxyG2NpNGrF_F_jcIJjTQqsytMcq0N7YvuDqoTZy1E";
+        Xhelper.LANGUAGE = "en";
+        Xhelper.PRINT_TAG = true;
+        UserParam userParam = new UserParam();
+        Xhelper<TimeResponse> xhelper = new Xhelper().xUrl(SECURL);
+        xhelper.xGet(new XNormalListener<TimeResponse>() {
+            @Override
+            public void successByValue(TimeResponse result) {
+                Log.i(TAG, "successByValue: " + result.getTimestamp());
+            }
+
+            @Override
+            public void successNoValue() {
+                Log.i(TAG, "successNoValue: ");
+            }
+
+            @Override
+            public void appError(Throwable ex) {
+                Log.i(TAG, "appError: " + ex.getMessage());
+            }
+
+            @Override
+            public void serverError(ServerError error) {
+                Log.i(TAG, "serverError: " + error.getError_msg());
+            }
+
+            @Override
+            public void cancel(Callback.CancelledException cex) {
+                Log.i(TAG, "cancel: ");
+            }
+
+            @Override
+            public void finish() {
+                Log.i(TAG, "finish: ");
+            }
+        });
+    }
 }

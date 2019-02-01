@@ -1,1 +1,1 @@
-include ':app', ':SwipeRecyclerLayout', ':video', ':baseLibrary', ':greendao', ':token',':xnet2'
+include ':app', ':SwipeRecyclerLayout', ':video', ':baseLibrary',':token',':xnet2'

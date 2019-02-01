@@ -1,4 +1,4 @@
-package com.github.slidedrawer;
+package com.xnet.xnet2.demo;
 
 /**
  * Created by wzhiqiang on 2019/1/9.
@@ -12,7 +12,7 @@ public class UserParam {
     private int weight = 54;
     private int weight_unit = 0;
 
-    UserParam(){}
+    public UserParam(){}
     public long getBirthday() {
         return birthday;
     }

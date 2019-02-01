@@ -21,6 +21,8 @@ import org.xutils.x;
 import java.io.File;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Created by qianli.ma on 2019/1/7 0007.
@@ -103,6 +105,7 @@ public class Xhelper<T> {
      * 日志对象
      */
     private Lgg lgg;
+    private Callback.Cancelable cancelable;
 
     /* -------------------------------------------- public -------------------------------------------- */
 
@@ -305,6 +308,7 @@ public class Xhelper<T> {
         return httpMethod;
     }
 
+
     /**
      * 上传图片
      *
@@ -316,7 +320,7 @@ public class Xhelper<T> {
         printHead();
         RequestParams imageParams = getImageParams(file);// 准备参数
         printNormal("The Http method is " + printHttpType(POST) + "; Start to request url is : [" + BASE_URL + "/v1.0/fs?type=image&duration=0" + "]");
-        x.http().post(imageParams, new Callback.ProgressCallback<String>() {// 开始请求
+        cancelable = x.http().post(imageParams,new Callback.ProgressCallback<String>() {// 开始请求
 
             @Override
             public void responseBody(UriRequest uriRequest) {
@@ -373,6 +377,8 @@ public class Xhelper<T> {
         });
     }
 
+    private List<Callback.Cancelable> list = new ArrayList<>();
+
     /**
      * 下载文件
      *
@@ -385,7 +391,7 @@ public class Xhelper<T> {
         printHead();
         RequestParams downParam = getDownParam(fid, path);// 准备参数
         printNormal("The Http method is " + printHttpType(GET) + "; Start to request url is : [" + BASE_URL + "/v1.0/fs/" + fid + "]");
-        x.http().get(downParam, new Callback.ProgressCallback<File>() {
+        Callback.Cancelable cancelable = x.http().get(downParam, new Callback.ProgressCallback<File>() {
 
             @Override
             public void responseBody(UriRequest uriRequest) {
@@ -433,6 +439,7 @@ public class Xhelper<T> {
             public void onFinished() {
                 listener.finish();
                 printFinish();
+
             }
         });
     }
@@ -501,7 +508,7 @@ public class Xhelper<T> {
         requestParams.addHeader("Authorization", getAuthorization());
         requestParams.addHeader("Accept-Language", LANGUAGE);
         requestParams.addHeader("User-Agent", android.os.Build.MANUFACTURER + "-" + android.os.Build.MODEL);
-        // 保存路径
+        // 保存路径,然后xutils就会保存你默认的路径中去
         requestParams.setSaveFilePath(savePath);
         return requestParams;
     }
@@ -526,8 +533,8 @@ public class Xhelper<T> {
      */
     private T toBean(String result, XNormalListener listenenr) {
         /* **** 注意这里一定要使用监听器去获取实现类的泛型 **** */
-        Type[] genericInterfaces = listenenr.getClass().getGenericInterfaces();
-        Type[] params = ((ParameterizedType) genericInterfaces[0]).getActualTypeArguments();
+        Type genericInterfaces = listenenr.getClass().getGenericSuperclass();
+        Type[] params = ((ParameterizedType) genericInterfaces).getActualTypeArguments();
         return JSONObject.parseObject(result, params[0]);
     }
 

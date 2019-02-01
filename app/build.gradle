@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
-apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -35,7 +34,7 @@ repositories {
 }
 
 ext {
-    branchName="mylibrary"
+    branchName="baseLibrary"
 }
 
 dependencies {
@@ -48,9 +47,13 @@ dependencies {
     implementation project(':SwipeRecyclerLayout')
     implementation project(':video')
 //    implementation(name: 'token-release', ext: 'aar')
-//    if(project.hasProperty('branchName') && branchName.equals("mylibrary")){
-//        implementation project(':mylibrary')
+//    if(project.hasProperty('branchName') && branchName.equals("baseLibrary")){
+//        implementation project(':baseLibrary')
 //    }
     implementation project(':xnet2')
-    implementation project(':greendao')
+
+    implementation 'com.github.Wlazly:Greendao:2.0.2'
+    api 'org.greenrobot:greendao:3.2.2'
+    api 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.1.0'
+    api 'com.alibaba:fastjson:1.1.70.android'
 }
