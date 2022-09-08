@@ -26,11 +26,6 @@ android {
 
 }
 
-repositories {
-    flatDir {
-        dirs project(':xnet2').file('libs')
-    }
-}
 
 ext {
     branchName="baseLibrary"
