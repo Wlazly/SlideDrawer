@@ -1,7 +1,6 @@
 package com.tcl.token.ndk;
 
 import android.text.TextUtils;
-
 import java.io.UnsupportedEncodingException;
 
 /**

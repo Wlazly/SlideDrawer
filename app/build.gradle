@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.jakewharton.butterknife'
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -43,17 +42,15 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
-    //implementation 'com.github.tom200989:nb20_module:a0.1'
     implementation project(':SwipeRecyclerLayout')
     implementation project(':video')
-//    implementation(name: 'token-release', ext: 'aar')
-//    if(project.hasProperty('branchName') && branchName.equals("baseLibrary")){
-//        implementation project(':baseLibrary')
-//    }
-    implementation project(':xnet2')
+//  implementation project(':xnet2')
 
-    implementation 'com.github.Wlazly:Greendao:2.0.2'
-    api 'org.greenrobot:greendao:3.2.2'
-    api 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.1.0'
+
     api 'com.alibaba:fastjson:1.1.70.android'
+    api 'org.greenrobot:eventbus:3.1.1'
+    implementation project(':token')
+//    implementation(name: 'ma_encrypts', ext: 'aar')
+//    implementation(name: 'xnet2-release', ext: 'aar')
+//    implementation(name: 'ma_xutils', ext: 'aar')
 }

@@ -2,10 +2,6 @@ package com.github.slidedrawer;
 
 import android.app.Application;
 
-import com.github.greendao.core.DbHelper;
-
-import org.xutils.x;
-
 
 /**
  * Created by wzhiqiang on 2018/12/19.
@@ -17,8 +13,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        x.Ext.init(this);
-        DbHelper.init(this,BASENAME,null);
+//        x.Ext.init(this);
     }
 
 

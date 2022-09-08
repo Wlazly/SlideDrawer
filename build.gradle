@@ -1,13 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     
     repositories {
+    google()
     }
     dependencies {
-//        classpath 'com.android.tools.build:gradle:3.2.1'
-        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2' // add plugin
-        classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0-rc3'
+        classpath 'com.android.tools.build:gradle:3.2.1'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -19,6 +17,7 @@ allprojects {
             dirs project(':app').file('libs')
         }
         maven { url 'https://jitpack.io' }
+        google()
     }
 }
 
